@@ -8,7 +8,7 @@ using UseCases.DataClassPluginInterfaces;
 
 namespace UseCases
 {
-    public class ViewCategoriesUseCases
+    public class ViewCategoriesUseCases : IViewCategoriesUseCases
     {
         private readonly ICategoryRepository CategoryRepository;
         public ViewCategoriesUseCases(ICategoryRepository categoryRepository)
@@ -18,7 +18,7 @@ namespace UseCases
 
         public IEnumerable<Category> Execute()
         {
-           return CategoryRepository.GetRepositories();
+            return CategoryRepository.GetRepositories();
         }
     }
 }

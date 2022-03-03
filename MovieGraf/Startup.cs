@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UseCases;
 using UseCases.DataClassPluginInterfaces;
 
 namespace MovieGraf
@@ -32,8 +33,15 @@ namespace MovieGraf
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
 
-            //dependicy injection
-            services.AddScoped<ICategoryRepository, CategoryInMemoryRepository>();
+            //dependicy injection for ýnmemory
+            services.AddScoped<ICategoryRepository, CategoryInMemoryRepository>(); //her istek için 
+
+            //dependicy injection for usecases
+            services.AddTransient<IViewCategoriesUseCases, ViewCategoriesUseCases>();
+            services.AddTransient<IAddCategoryUseCase, AddCategoryUseCase>();
+            services.AddTransient<IEditCategoryUseCase, EditCategoryUseCase>();
+            services.AddTransient<IGetCategoryByIdUseCase, GetCategoryByIdUseCase>();
+            services.AddTransient<IDeleteCategoryUseCase, DeleteCategoryUseCase>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
