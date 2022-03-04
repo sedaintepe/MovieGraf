@@ -1,0 +1,99 @@
+﻿@page "/editmovie/{MovieId}"
+
+@inject NavigationManager NavigationManager
+@inject IAddMovieUseCase AddMovieUseCase
+@inject IGetMovieByIdUseCase GetMovieByIdUseCase
+@inject IEditMovieUseCase EditMovieUseCase
+@inject IViewCategoriesUseCases ViewCategoryUseCases
+
+<h3>Edit Movie</h3>
+
+
+
+@if (_movie != null)
+{
+    <EditForm Model="_movie" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary>
+
+        </ValidationSummary>
+
+        <div class="form-group">
+            <label for="name">MovieName</label>
+            <InputText id="name" @bind-Value="_movie.MovieName" class="form-control"></InputText>
+        </div>
+        <div class="form-group">
+            <label for="genre">Genre</label>
+            <select id="genre "@bind="_movie.CategoryId" class="form-control">
+                <option selected></option>
+                @foreach (var cat in _categories)
+                {
+                    <option value="@cat.Id">@cat.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="release">Release</label>
+            <InputText id="release" @bind-Value="_movie.ReleaseYear" class="form-control"></InputText>
+        </div>
+        <div class="form-group">
+            <label for="director">DirectorName</label>
+            <InputText id="director" @bind-Value="_movie.DirectorName" class="form-control"></InputText>
+        </div>
+        <div class="form-group">
+            <label for="imdb">Imdb</label>
+            <InputText id="imdb" @bind-Value="_movie.MovieImdb" class="form-control"></InputText>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-primary" @onclick="OnCancel">Cancel</button>
+
+
+    </EditForm>
+}
+
+@code {
+    [Parameter]
+    public string MovieId { get; set; }
+
+    private Movie _movie;
+    private IEnumerable<Category> _categories;
+
+    protected override void OnInitialized()
+    {
+
+        base.OnInitialized();
+
+        _categories = ViewCategoryUseCases.Execute();
+
+    }
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        if (int.TryParse(this.MovieId, out int iMovieId))
+        {
+            var mov = GetMovieByIdUseCase.Execute(iMovieId);
+            this._movie = new Movie
+            {
+                Id = mov.Id,
+                MovieName = mov.MovieName,
+                CategoryId = mov.CategoryId,
+                DirectorName = mov.DirectorName,
+                ReleaseYear = mov.ReleaseYear,
+                MovieImdb = mov.MovieImdb
+            };
+        }
+
+    }
+    private void OnValidSubmit()
+    {
+        EditMovieUseCase.Execute(this._movie);
+        NavigationManager.NavigateTo("/movies");
+    }
+    private void OnCancel()
+    {
+        NavigationManager.NavigateTo("/movies");
+    }
+
+}
+

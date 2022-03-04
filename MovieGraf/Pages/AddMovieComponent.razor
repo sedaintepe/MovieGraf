@@ -1,0 +1,80 @@
+﻿@page "/addmovie"
+
+@inject NavigationManager NavigationManager
+@inject UseCases.IAddMovieUseCase AddMovieUseCase
+@inject IViewCategoriesUseCases ViewCategoryUseCases
+
+<h3>Add Movie</h3>
+
+
+
+@if (_movie != null)
+{
+    <EditForm Model="_movie" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary>
+
+        </ValidationSummary>
+
+        <div class="form-group">
+            <label for="name">MovieName</label>
+            <InputText id="name" @bind-Value="_movie.MovieName" class="form-control"></InputText>
+        </div>
+        <div class="form-group">
+            <label for="genre">Genre</label>
+            <select id="genre" @bind="_movie.CategoryId" class="form-control">
+                <option selected></option>
+                @foreach (var cat in _categories)
+                {
+                    <option value="@cat.Id">@cat.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="release">Release</label>
+            <InputText id="release" @bind-Value="_movie.ReleaseYear" class="form-control"></InputText>
+        </div>
+        <div class="form-group">
+            <label for="director">DirectorName</label>
+            <InputText id="director" @bind-Value="_movie.DirectorName" class="form-control"></InputText>
+        </div>
+        <div class="form-group">
+            <label for="imdb">Imdb</label>
+            <InputText id="imdb" @bind-Value="_movie.MovieImdb" class="form-control"></InputText>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-primary" @onclick="OnCancel">Cancel</button>
+
+
+    </EditForm>
+}
+
+@code {
+
+    private Movie _movie;
+
+    private IEnumerable<Category> _categories;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _movie = new Movie();
+        _categories = ViewCategoryUseCases.Execute();
+
+
+
+    }
+    private void OnValidSubmit()
+    {
+        AddMovieUseCase.Execute(_movie);
+        NavigationManager.NavigateTo("/movies");
+    }
+    private void OnCancel()
+    {
+        NavigationManager.NavigateTo("/movies");
+    }
+
+
+
+}

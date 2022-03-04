@@ -35,6 +35,7 @@ namespace MovieGraf
 
             //dependicy injection for ýnmemory
             services.AddScoped<ICategoryRepository, CategoryInMemoryRepository>(); //her istek için 
+            services.AddScoped<IMovieRepository, MovieInMemoryRepository>(); //her istek için 
 
             //dependicy injection for usecases
             services.AddTransient<IViewCategoriesUseCases, ViewCategoriesUseCases>();
@@ -42,6 +43,11 @@ namespace MovieGraf
             services.AddTransient<IEditCategoryUseCase, EditCategoryUseCase>();
             services.AddTransient<IGetCategoryByIdUseCase, GetCategoryByIdUseCase>();
             services.AddTransient<IDeleteCategoryUseCase, DeleteCategoryUseCase>();
+            services.AddTransient<IViewMovieUseCase, ViewMovieUseCase>();
+            services.AddTransient<IAddMovieUseCase, AddMovieUseCase>();
+            services.AddTransient<IEditMovieUseCase, EditMovieUseCase>();
+            services.AddTransient<IGetMovieByIdUseCase, GetMovieByIdUseCase>();
+            services.AddTransient<IDeleteMovieUseCase, DeleteMovieUseCase>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

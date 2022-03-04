@@ -1,0 +1,62 @@
+﻿@page "/movies"
+
+@inject NavigationManager NavigationManager
+@inject IViewMovieUseCase ViewMovieUseCase
+@inject IGetCategoryByIdUseCase GetCategoryByIdUseCase
+@inject IDeleteMovieUseCase DeleteMovieUseCase 
+
+<h3>Movies</h3>
+@if (Movies != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Movie Name</th>
+                <th>Genre</th>
+                <th>Release </th>
+                <th>Director Name</th>
+                <th>Imdb</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Movies)
+            {
+            <tr>
+                <td>@item.MovieName</td>
+                <td>@GetCategoryByIdUseCase.Execute(item.CategoryId)?.Name</td>
+                <td>@item.ReleaseYear</td>
+                <td>@item.DirectorName</td>
+                <td>@item.MovieImdb</td>
+                <td><button type="button" @onclick="@(()=>OnEditMovie(item))" class="btn btn-link">Edit</button></td>
+                &nbsp;
+                <td><button type="button" @onclick="@(()=>OnDeleteMovie(item.Id))" class="btn btn-link">Delete</button></td>
+
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+<button type="button" @onclick="OnClickAddMovie" class="btn btn-primary">Add Movie</button>
+
+@code {
+    private IEnumerable<Movie> Movies;
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Movies = ViewMovieUseCase.Execute();
+    }
+    private void OnClickAddMovie()
+    {
+
+        NavigationManager.NavigateTo("/addmovie");
+    }
+    private void OnEditMovie(Movie movie)
+    {
+        NavigationManager.NavigateTo($"/editmovie/{movie.Id}");
+    }
+    private void OnDeleteMovie(int movieId)
+    {
+        DeleteMovieUseCase.Delete(movieId);
+    }
+}
