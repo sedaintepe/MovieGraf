@@ -58,5 +58,6 @@
     private void OnDeleteMovie(int movieId)
     {
         DeleteMovieUseCase.Delete(movieId);
+        Movies = ViewMovieUseCase.Execute()?.ToList();
     }
 }

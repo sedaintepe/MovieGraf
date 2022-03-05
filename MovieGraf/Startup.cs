@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -41,8 +43,11 @@ namespace MovieGraf
             });
 
             //dependicy injection for ýnmemory
-            services.AddScoped<ICategoryRepository, CategoryInMemoryRepository>(); //her istek için 
-            services.AddScoped<IMovieRepository, MovieInMemoryRepository>(); //her istek için 
+            //services.AddScoped<ICategoryRepository, CategoryInMemoryRepository>(); //her istek için 
+            //services.AddScoped<IMovieRepository, MovieInMemoryRepository>(); //her istek için
+                     //EFCORE                                                        //
+            services.AddScoped<ICategoryRepository,CategoryRepository>(); //her istek için 
+            services.AddScoped<IMovieRepository, MovieRepository>(); //her istek için 
 
             //dependicy injection for usecases
             services.AddTransient<IViewCategoriesUseCases, ViewCategoriesUseCases>();
