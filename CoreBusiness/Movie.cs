@@ -21,6 +21,8 @@ namespace CoreBusiness
 
      
         public string ReleaseYear { get; set; }//datetime will be
+
+        public string Comments { get; set; }//Comments will be for users
   
 
     }

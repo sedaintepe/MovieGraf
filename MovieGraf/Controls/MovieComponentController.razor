@@ -1,0 +1,74 @@
+﻿@inject IViewCategoriesUseCases ViewCategoriesUseCases
+@inject IViewMoviesByCategoryId ViewMoviesByCategoryId
+
+<div class="form-group">
+    <label for="genre">Genre</label>
+    <select id="genre" @bind="SelectedCategoryId" class="form-control">
+        <option selected></option>
+        @foreach (var cat in _categories)
+        {
+            <option value="@cat.Id">@cat.Name</option>
+        }
+    </select>
+</div>
+
+@if (moviesInCategory != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Movie Name</th>
+                <th>Director Name</th>
+                <th>Imdb</th>
+                <th>Release Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var prod in moviesInCategory)
+            {
+            <tr>
+                <td>
+                    @prod.MovieName
+                </td>
+                <td>
+                    @prod.DirectorName
+                </td>
+                <td>
+                    @prod.MovieImdb
+                </td>
+                <td>
+                    @prod.ReleaseYear
+                </td>
+
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+@code {
+    private IEnumerable<Movie> moviesInCategory;
+    private int selectedCategoryId;
+   
+    private int SelectedCategoryId
+    {
+        get
+        {
+            return selectedCategoryId;
+        }
+        set
+        {
+            selectedCategoryId = value;
+            moviesInCategory = ViewMoviesByCategoryId.Execute(value);
+            StateHasChanged();  //Listeleme işlemi
+        }
+    }
+    private IEnumerable<Category> _categories;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _categories = ViewCategoriesUseCases.Execute();
+
+    }
+
+}

@@ -14,5 +14,6 @@ namespace UseCases.DataClassPluginInterfaces
         void UpdateMovie(Movie movie);
         Movie GetMovieById(int movieId);
         void DeleteMovie(int id);
+        IEnumerable<Movie> GetMovieByCategoryId(int categoryId);
     }
 }

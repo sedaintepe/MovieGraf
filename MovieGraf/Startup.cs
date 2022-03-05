@@ -48,6 +48,7 @@ namespace MovieGraf
             services.AddTransient<IEditMovieUseCase, EditMovieUseCase>();
             services.AddTransient<IGetMovieByIdUseCase, GetMovieByIdUseCase>();
             services.AddTransient<IDeleteMovieUseCase, DeleteMovieUseCase>();
+            services.AddTransient<IViewMoviesByCategoryId, ViewMoviesByCategoryId>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

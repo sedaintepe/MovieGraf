@@ -61,5 +61,10 @@ namespace Plugins.DataStore.InMemory
             var moveToDelete = GetMovieById(movieId);
             if (moveToDelete != null) _movies.Remove(moveToDelete);
         }
+
+        public IEnumerable<Movie> GetMovieByCategoryId(int categoryId)
+        {
+            return _movies.Where(x => x.CategoryId == categoryId);
+        }
     }
 }
