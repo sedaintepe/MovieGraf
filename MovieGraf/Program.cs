@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -11,6 +12,8 @@ namespace MovieGraf
 {
     public class Program
     {
+     
+     
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
@@ -22,5 +25,7 @@ namespace MovieGraf
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+        
     }
 }

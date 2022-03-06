@@ -42,6 +42,12 @@ namespace MovieGraf
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOnly", p => p.RequireClaim("Position", "admin"));
+               options.AddPolicy("LoginOnly", p => p.RequireClaim("Position", "Login"));
+            });
+
             //dependicy injection for ýnmemory
             //services.AddScoped<ICategoryRepository, CategoryInMemoryRepository>(); //her istek için 
             //services.AddScoped<IMovieRepository, MovieInMemoryRepository>(); //her istek için
@@ -82,8 +88,12 @@ namespace MovieGraf
 
             app.UseRouting();
 
+            app.UseAuthorization();
+            app.UseAuthentication();
+
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });

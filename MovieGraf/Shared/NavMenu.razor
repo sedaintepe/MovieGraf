@@ -8,26 +8,28 @@
     <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
         <ul class="nav flex-column">
             <li class="nav-item px-3">
-                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <NavLink class="nav-link" href="listmovie" Match="NavLinkMatch.All">
                     <span class="oi oi-home" aria-hidden="true"></span>Home
                 </NavLink>
             </li>
+
             <li class="nav-item px-3">
                 <NavLink class="nav-link" href="listmovie">
                     <span class="oi oi-plus" aria-hidden="true"></span>List Movies
                 </NavLink>
             </li>
-           
-            <li class="nav-item pl-4">
-                <NavLink class="nav-link" href="categories">
-                    <span class="oi oi-list-rich" aria-hidden="true"></span>ManageCategories
-                </NavLink>
-            </li>
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="movies">
-                    <span class="oi oi-list-rich" aria-hidden="true"></span>Manage Movies
-                </NavLink>
-            </li>
+            <AuthorizeView>
+                <li class="nav-item pl-4">
+                    <NavLink class="nav-link" href="categories">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span>ManageCategories
+                    </NavLink>
+                </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="movies">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span>Manage Movies
+                    </NavLink>
+                </li>
+            </AuthorizeView>
         </ul>
     </div>
 </div>

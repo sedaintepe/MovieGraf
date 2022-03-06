@@ -1,6 +1,21 @@
 ﻿@page "/listmovie"
+@attribute [Authorize(Policy = "LoginOnly")]
 
-<h3>Home Movie Liste</h3>
+    <h3>Home Movie Liste</h3>
 <MovieComponentController></MovieComponentController>
- @code {
-          }
+
+@code {
+   
+    private string loginName;
+
+    [CascadingParameter]
+    private Task<AuthenticationState> _authState { get; set; }
+
+    private AuthenticationState authState;
+
+    protected override async Task OnInitializedAsync()
+    {
+        authState = await _authState;
+        loginName = authState.User.Identity.Name;
+    }
+}

@@ -1,4 +1,5 @@
 ﻿@page "/editmovie/{MovieId}"
+@attribute [Authorize(Policy = "AdminOnly")]
 
 @inject NavigationManager NavigationManager
 @inject IAddMovieUseCase AddMovieUseCase
@@ -24,7 +25,7 @@
         </div>
         <div class="form-group">
             <label for="genre">Genre</label>
-            <select id="genre "@bind="_movie.CategoryId" class="form-control">
+            <select id="genre " @bind="_movie.CategoryId" class="form-control">
                 <option selected></option>
                 @foreach (var cat in _categories)
                 {
