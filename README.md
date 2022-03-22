@@ -1,6 +1,6 @@
 # MovieGraf
 
-Sayfa web blazer yaratılarak oluşturuldu, 2 tane data ve use caseler library sınıfı oluşturuldu, sql bağlamadan once önce inmemory oluşturuldu sonra sql ile bağlantısı sağlantı ,
+Sayfa web blazor yaratılarak oluşturuldu, 2 tane data ve use caseler library sınıfı oluşturuldu, sql bağlamadan once önce inmemory oluşturuldu sonra sql ile bağlantısı sağlantı ,
 Kategori modeli var kategori ekleyip o kategoriye ait filmler listeleyebilirsiniz,
 
 ![image](https://user-images.githubusercontent.com/29504141/157050679-30a4e130-332c-49da-98d0-b7cda131b43f.png)
